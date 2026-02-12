@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -45,8 +46,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function personnels()
+    public function Presences()
    {
-    return $this->hasOne(personnels::class);
+    return $this->hasMany(Presences::class);
+   }
+      public function absences()
+   {
+    return $this->hasMany(ReasonAbsences::class);
    }
 }

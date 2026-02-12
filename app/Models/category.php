@@ -12,4 +12,12 @@ class category extends Model
     {
         return $this->hasMany(personnel::class);
     }
+    public function create()
+{
+    
+    $categories = \App\Models\Category::all(); 
+    
+    // On retourne la vue qui se trouve dans resources/views/staff/create.blade.php
+    return view('personnel.create', compact('categories'));
+}
 }
