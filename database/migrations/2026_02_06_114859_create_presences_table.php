@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presnces', function (Blueprint $table) {
+        Schema::create('presences', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('date_jour');
-             $table->date('heure_arrivee')->nullable();
-              $table->date('heure_depart')->nullable();
+             $table->time('heure_arrivee')->nullable();
+              $table->time('heure_depart')->nullable();
               $table->string('statut')->default('present');
             $table->timestamps();
         });

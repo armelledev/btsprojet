@@ -20,7 +20,10 @@ Route::middleware('auth')->group(function () {
      Route::get('\dasboard',[DashboardController::class, 'index'])
      ->middleware(['auth','verified'])
      ->name('dashboard');
-
+     Route::patch('/users/{user}/role', [DashboardController::class, 'updateRole'])->name('admin.updateRole');
+     Route::get('/admin/users',[DashboardController::class,'UsersList'])
+     ->middleware(['auth','admin'])
+     ->name('admin.user.list');
 
 
 

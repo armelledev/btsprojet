@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Presnce;
+use App\Models\Presence;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -36,4 +36,35 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('presence'));
     }
+   
+
+// Afficher la liste des utilisateurs (pour l'admin)
+public function usersList() {
+    $users = User::all();
+    return view('admin.users', compact('users'));
+}
+
+// Mettre à jour le rôle
+public function updateRole(Request $request, User $user) {
+    $request->validate([
+        'role' => 'required|in:admin,employe',
+    ]);
+
+    $user->update(['role' => $request->role]);
+
+    return back()->with('success', 'Rôle mis à jour avec succès !');
+}
+// Afficher la liste des employés (pour l'admin)
+public function usersList() {
+    $today = \Carbon\Carbon::today()->format('Y-m-d');
+    
+    // On récupère les employés avec leur présence du jour si elle existe
+    $users = User::where('role', 'employe')
+                ->with(['presences' => function($query) use ($today) {
+                    $query->where('date_jour', $today);
+                }])
+                ->get();
+
+    return view('admin.users', compact('users'));
+}
 }

@@ -17,107 +17,89 @@
             
         @endif
     </head>
-    <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Gestion de Présence</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="antialiased bg-gray-50 text-gray-900">
-        
-        <nav class="bg-white shadow-sm border-b">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16 items-center">
-                    <div class="flex items-center gap-2">
-                        <x-application-logo class="w-10 h-10 fill-current text-indigo-600" />
-                        <span class="font-bold text-xl tracking-tight uppercase">Presence<span class="text-indigo-600">Pro</span></span>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PresencePro | Accueil</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="antialiased bg-slate-50 overflow-x-hidden">
+
+    <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2 animate__animated animate__fadeInLeft">
+                    <div class="bg-indigo-600 p-2 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    
+                    <span class="text-2xl font-black text-slate-800 tracking-tight">Presence<span class="text-indigo-600">Pro</span></span>
+                </div>
+
+                <nav class="flex items-center gap-6 animate__animated animate__fadeInRight">
                     @if (Route::has('login'))
-                        <div class="space-x-4">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">Tableau de bord</a>
-                            @else
-                                <a href="{{ route('login') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Connexion</a>
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-900 transition">S'inscrire</a>
-                                @endif
-                            @endauth
-                        </div>
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="flex items-center gap-2 text-slate-600 hover:text-indigo-600 font-medium transition-all group">
+                                <span>Tableau de Bord</span>
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-slate-600 hover:text-indigo-600 font-semibold transition-colors">Connexion</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="bg-slate-900 text-white px-5 py-2.5 rounded-full hover:bg-indigo-600 transition-all shadow-lg hover:shadow-indigo-200 active:scale-95 font-medium">S'inscrire</a>
+                            @endif
+                        @endauth
                     @endif
-                </div>
+                </nav>
             </div>
-        </nav>
+        </div>
+    </header>
 
-        <main>
-            <div class="relative py-16 bg-white overflow-hidden">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="lg:flex lg:items-center lg:justify-between">
-                        <div class="lg:w-1/2">
-                            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-6xl italic">
-                                Simplifiez le <span class="text-indigo-600 underline">Pointage</span> de votre personnel.
-                            </h1>
-                            <p class="mt-4 text-xl text-gray-500">
-                                Une plateforme complète pour gérer les présences, les catégories d'employés et les justifications d'absences en un clic.
-                            </p>
-                            <div class="mt-8 flex gap-4">
-                                <a href="{{ route('login') }}" class="flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg">
-                                    Commencer maintenant
-                                </a>
-                            </div>
-                        </div>
-                        <div class="hidden lg:block lg:w-1/2 mt-12 lg:mt-0">
-                            <div class="flex justify-center">
-                                <svg class="w-64 h-64 text-indigo-100" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="relative min-h-screen flex items-center justify-center pt-20">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 overflow-hidden">
+            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-100/50 rounded-full blur-[120px] animate-pulse"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-blue-100/50 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-medium mb-8 animate__animated animate__fadeInDown">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                Nouveau : Système de pointage intelligent
             </div>
 
-            <div class="py-12 bg-gray-50">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                        
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <div class="text-indigo-600 mb-4 italic font-bold text-sm">TABLE USERS</div>
-                            <h3 class="text-lg font-bold">Gestion Personnel</h3>
-                            <p class="text-gray-500 text-sm mt-2">Authentification sécurisée gérée par Laravel Breeze pour chaque employé.</p>
-                        </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6 animate__animated animate__fadeInUp">
+                La Gestion de Présence <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500 underline decoration-indigo-200 underline-offset-8">Simplifiée.</span>
+            </h1>
 
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <div class="text-green-600 mb-4 italic font-bold text-sm">TABLE PRESENCE</div>
-                            <h3 class="text-lg font-bold">Pointage Quotidien</h3>
-                            <p class="text-gray-500 text-sm mt-2">Enregistrez les arrivées, les départs et calculez automatiquement les retards.</p>
-                        </div>
+            <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed animate__animated animate__fadeInUp animate__delay-1s">
+                Optimisez chaque instant de votre entreprise, du suivi du pointage des employés à la génération des bilans de présence. Un seul outil, une clarté totale.
+            </p>
 
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <div class="text-red-600 mb-4 italic font-bold text-sm">TABLE REASONS</div>
-                            <h3 class="text-lg font-bold">Justifications</h3>
-                            <p class="text-gray-500 text-sm mt-2">Gérez les motifs d'absences et les demandes de congés avec validation.</p>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <div class="text-purple-600 mb-4 italic font-bold text-sm">TABLE CATEGORIES</div>
-                            <h3 class="text-lg font-bold">Roles & Services</h3>
-                            <p class="text-gray-500 text-sm mt-2">Organisez votre structure par départements et catégories de postes.</p>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="{{ route('login') }}" class="group relative inline-flex items-center justify-center px-10 py-4 font-bold text-white transition-all duration-200 bg-indigo-600 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200">
+                    Accéder au Tableau de Bord
+                </a>
+                
+                <p class="mt-6 text-sm text-slate-400 font-medium">
+                    Déjà 50+ entreprises nous font confiance.
+                </p>
             </div>
-        </main>
+        </div>
+    </section>
 
-        <footer class="bg-white border-t py-8">
-            <div class="text-center text-gray-400 text-sm">
-                &copy; {{ date('Y') }} PresencePro - laeticia armelle tout droits reserver
-            </div>
-        </footer>
-    </body>
+    <footer class="py-10 text-center border-t border-slate-200 bg-white">
+        <p class="text-slate-400 text-sm">
+            © 2026 PresencePro. Tous droits réservés. | Propulsé par Laravel & Tailwind CSS.
+        </p>
+    </footer>
+
+</body>
 </html>
   
 </html>
